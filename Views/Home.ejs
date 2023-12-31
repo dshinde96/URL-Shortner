@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <div>
+        <% if (locals.id) { %>
+         <p>URL Generated:http://localhost:8001/url/<%= locals.id %></p>
+        <% } %>
+    </div>
+    <div>
+        <form method="post" action="/URL">   <%# action-route which should execute on submiting form and the input field directly goes to body with specified name-->means backend will handle this inputed data using name%>
+            <h3>Enter the original URL</h3>
+            <input type="text" name="url" ,placeholder="https://expample.com">  <%# Will send this field as req.body %>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div>
+       <% if (locals.urls) { %>  <%# check if urls is present or not as we are rendering home from two routes %>
+        <table>
+            <thead>
+                <th>Sr.No</th>
+                <th>Short ID</th>
+                <th>Redirect URL</th>
+                <th>Clicks</th>
+            </thead>
+            <tbody>
+                <% urls.forEach((url,index) => { %>
+                 <tr>
+                    <td><%= index+1 %></td>
+                    <td>http://localhost:8001/url/<%=url.shortId %></td>
+                    <td><%= url.rediretId %></td>
+                    <td><%= url.visitHistory.length %></td>
+                 </tr>
+                <% }) %>
+            </tbody>
+       <% } %>
+        </table>
+    </div>
+</body>
+
+</html>
